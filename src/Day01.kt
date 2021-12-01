@@ -1,12 +1,13 @@
 fun main() {
     fun part1(input: List<Int>): Int {
-        return input.filterIndexed {index, num -> index != 0 && num > input[index-1]}.size
+        return input.zipWithNext()
+            .count { (prev, next) -> next > prev }
     }
 
     fun part2(input: List<Int>): Int {
-        val seq = input.asSequence()
-        val windows = seq.windowed(step=1, size=3).map { it.sum() }
-        return part1(windows.toList())
+        return input.windowed(step = 1, size = 3) { it.sum() }
+            .zipWithNext()
+            .count { (prev, next) -> next > prev }
     }
 
     // test if implementation meets criteria from the description, like:
