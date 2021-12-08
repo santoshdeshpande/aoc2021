@@ -17,3 +17,11 @@ fun readInputInt(name: String) = File("src", "$name.txt").readLines().map { it.t
  * Converts string to md5 hash.
  */
 fun String.md5(): String = BigInteger(1, MessageDigest.getInstance("MD5").digest(toByteArray())).toString(16)
+
+fun <T> List<List<T>>.transpose() : List<List<T>> {
+    val result:MutableList<MutableList<T>> = (this.first().indices).map {
+        mutableListOf<T>()
+    }.toMutableList()
+    this.forEach { columns -> result.zip(columns).forEach { (rows, cell) -> rows.add(cell) } }
+    return result
+}
